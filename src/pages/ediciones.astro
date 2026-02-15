@@ -1,0 +1,364 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import Footer from '../components/Footer.astro';
+import EditionCard from '../components/EditionCard.astro';
+
+// Sample editions data - ordenadas de más reciente a más antigua
+const editions = [
+	{ issueNumber: 'Issue 12', title: 'Winter Reflections', season: 'Winter', year: '2026', slug: 'winter-reflections-2026', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+	{ issueNumber: 'Issue 11', title: 'Fall Elegance', season: 'Fall', year: '2026', slug: 'fall-elegance-2026', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
+	{ issueNumber: 'Issue 10', title: 'Summer Cinema', season: 'Summer', year: '2026', slug: 'summer-cinema-2026', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+	{ issueNumber: 'Issue 09', title: 'Spring Fashion', season: 'Spring', year: '2026', slug: 'spring-fashion-2026', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+	{ issueNumber: 'Issue 08', title: 'Winter Luxe', season: 'Winter', year: '2025', slug: 'winter-luxe-2025', gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' },
+	{ issueNumber: 'Issue 07', title: 'Fall Trends', season: 'Fall', year: '2025', slug: 'fall-trends-2025', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
+	{ issueNumber: 'Issue 06', title: 'Summer Vibes', season: 'Summer', year: '2025', slug: 'summer-vibes-2025', gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)' },
+	{ issueNumber: 'Issue 05', title: 'Spring Collection', season: 'Spring', year: '2025', slug: 'spring-collection-2025', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)' },
+	{ issueNumber: 'Issue 04', title: 'Winter Stories', season: 'Winter', year: '2024', slug: 'winter-stories-2024', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+	{ issueNumber: 'Issue 03', title: 'Fall Edition', season: 'Fall', year: '2024', slug: 'fall-edition-2024', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
+	{ issueNumber: 'Issue 02', title: 'Summer Special', season: 'Summer', year: '2024', slug: 'summer-special-2024', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+	{ issueNumber: 'Issue 01', title: 'Launch Issue', season: 'Spring', year: '2024', slug: 'launch-issue-2024', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+];
+
+// Extract unique years and seasons for filters
+const years = [...new Set(editions.map(e => e.year))].sort((a, b) => b.localeCompare(a));
+const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
+---
+
+<Layout title="Ediciones - METTZ">
+	<Header />
+	<MobileMenu />
+	
+	<main>
+		<!-- Hero Banner -->
+		<section class="editions-hero">
+			<div class="hero-overlay">
+				<div class="container">
+					<div class="hero-content">
+						<h1 class="hero-title">Ediciones METTZ</h1>
+						<p class="hero-description">
+							Explora nuestra colección completa de ediciones. Cada número una celebración única de moda, cine y cultura.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Filters -->
+		<section class="filters-section">
+			<div class="container">
+				<div class="filters-wrapper">
+					<div class="filter-group">
+						<label class="filter-label">Año:</label>
+						<select class="filter-select" id="yearFilter">
+							<option value="all">Todos</option>
+							{years.map(year => (
+								<option value={year}>{year}</option>
+							))}
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label class="filter-label">Temporada:</label>
+						<select class="filter-select" id="seasonFilter">
+							<option value="all">Todas</option>
+							{seasons.map(season => (
+								<option value={season}>{season}</option>
+							))}
+						</select>
+					</div>
+
+					<button class="filter-reset" id="resetFilters">
+						Limpiar filtros
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- Editions Grid -->
+		<section class="editions-section">
+			<div class="container">
+				<div class="editions-wrapper">
+					<div class="editions-scroll" id="editionsScroll">
+						{editions.map((edition, index) => (
+							<div class="edition-wrapper" data-year={edition.year} data-season={edition.season}>
+								<EditionCard 
+									issueNumber={edition.issueNumber}
+									title={edition.title}
+									season={edition.season}
+									year={edition.year}
+									slug={edition.slug}
+								/>
+								<style define:vars={{ editionGradient: edition.gradient }}>
+									.edition-wrapper:nth-child({index + 1}) .cover-placeholder {
+										background: var(--editionGradient);
+									}
+								</style>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<!-- Scroll Controls -->
+				<div class="scroll-controls">
+					<button class="scroll-btn" id="scrollLeft" aria-label="Scroll left">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="15 18 9 12 15 6"></polyline>
+						</svg>
+					</button>
+					<button class="scroll-btn" id="scrollRight" aria-label="Scroll right">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	/* Hero Banner */
+	.editions-hero {
+		position: relative;
+		height: 60vh;
+		min-height: 400px;
+		background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.hero-overlay {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		background: rgba(0, 0, 0, 0.3);
+	}
+
+	.hero-content {
+		text-align: center;
+		color: var(--color-white);
+		max-width: 700px;
+		margin: 0 auto;
+	}
+
+	.hero-title {
+		font-size: var(--text-5xl);
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		margin-bottom: var(--space-4);
+		color: var(--color-white);
+	}
+
+	.hero-description {
+		font-size: var(--text-xl);
+		line-height: 1.6;
+		opacity: 0.95;
+		color: var(--color-white);
+	}
+
+	/* Filters Section */
+	.filters-section {
+		background-color: var(--color-gray-100);
+		padding: var(--space-6) 0;
+		border-bottom: var(--border-width) solid var(--border-color);
+	}
+
+	.filters-wrapper {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-4);
+		align-items: center;
+	}
+
+	.filter-group {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+	}
+
+	.filter-label {
+		font-size: var(--text-sm);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.filter-select {
+		padding: var(--space-2) var(--space-4);
+		font-family: var(--font-sans);
+		font-size: var(--text-sm);
+		border: var(--border-width) solid var(--border-color);
+		background-color: var(--color-white);
+		cursor: pointer;
+		transition: border-color var(--transition-fast);
+	}
+
+	.filter-select:focus {
+		outline: none;
+		border-color: var(--color-black);
+	}
+
+	.filter-reset {
+		margin-left: auto;
+		padding: var(--space-2) var(--space-4);
+		font-size: var(--text-sm);
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		border: var(--border-width) solid var(--color-black);
+		background-color: var(--color-white);
+		color: var(--color-black);
+		cursor: pointer;
+		transition: all var(--transition-fast);
+	}
+
+	.filter-reset:hover {
+		background-color: var(--color-black);
+		color: var(--color-white);
+	}
+
+	/* Editions Section */
+	.editions-section {
+		padding: var(--space-12) 0;
+	}
+
+	.editions-wrapper {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.editions-scroll {
+		display: flex;
+		gap: var(--space-6);
+		overflow-x: auto;
+		scroll-behavior: smooth;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+		padding-bottom: var(--space-4);
+	}
+
+	.editions-scroll::-webkit-scrollbar {
+		display: none;
+	}
+
+	.edition-wrapper {
+		transition: opacity var(--transition-base), transform var(--transition-base);
+	}
+
+	.edition-wrapper.hidden {
+		opacity: 0;
+		transform: scale(0.9);
+		pointer-events: none;
+		position: absolute;
+	}
+
+	/* Scroll Controls */
+	.scroll-controls {
+		display: flex;
+		justify-content: center;
+		gap: var(--space-4);
+		margin-top: var(--space-8);
+	}
+
+	.scroll-btn {
+		width: 48px;
+		height: 48px;
+		border: var(--border-width) solid var(--color-black);
+		background-color: var(--color-white);
+		color: var(--color-black);
+		cursor: pointer;
+		transition: all var(--transition-fast);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.scroll-btn:hover {
+		background-color: var(--color-black);
+		color: var(--color-white);
+	}
+
+	@media (max-width: 639px) {
+		.hero-title {
+			font-size: var(--text-4xl);
+		}
+
+		.hero-description {
+			font-size: var(--text-base);
+		}
+
+		.filter-reset {
+			margin-left: 0;
+			width: 100%;
+		}
+	}
+</style>
+
+<script>
+	// Filter functionality
+	const yearFilter = document.getElementById('yearFilter') as HTMLSelectElement;
+	const seasonFilter = document.getElementById('seasonFilter') as HTMLSelectElement;
+	const resetButton = document.getElementById('resetFilters');
+	const editionWrappers = document.querySelectorAll('.edition-wrapper');
+
+	function filterEditions() {
+		const selectedYear = yearFilter.value;
+		const selectedSeason = seasonFilter.value;
+
+		editionWrappers.forEach((wrapper) => {
+			const year = wrapper.getAttribute('data-year');
+			const season = wrapper.getAttribute('data-season');
+
+			const yearMatch = selectedYear === 'all' || year === selectedYear;
+			const seasonMatch = selectedSeason === 'all' || season === selectedSeason;
+
+			if (yearMatch && seasonMatch) {
+				wrapper.classList.remove('hidden');
+			} else {
+				wrapper.classList.add('hidden');
+			}
+		});
+	}
+
+	yearFilter?.addEventListener('change', filterEditions);
+	seasonFilter?.addEventListener('change', filterEditions);
+
+	resetButton?.addEventListener('click', () => {
+		yearFilter.value = 'all';
+		seasonFilter.value = 'all';
+		filterEditions();
+	});
+
+	// Scroll controls
+	const editionsScroll = document.getElementById('editionsScroll');
+	const scrollLeft = document.getElementById('scrollLeft');
+	const scrollRight = document.getElementById('scrollRight');
+
+	if (editionsScroll && scrollLeft && scrollRight) {
+		const scrollAmount = 600;
+
+		scrollLeft.addEventListener('click', () => {
+			editionsScroll.scrollBy({
+				left: -scrollAmount,
+				behavior: 'smooth'
+			});
+		});
+
+		scrollRight.addEventListener('click', () => {
+			editionsScroll.scrollBy({
+				left: scrollAmount,
+				behavior: 'smooth'
+			});
+		});
+	}
+</script>

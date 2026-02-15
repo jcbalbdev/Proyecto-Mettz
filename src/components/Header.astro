@@ -1,0 +1,249 @@
+---
+
+---
+
+<header class="site-header">
+  <div class="header-container">
+    <!-- Subscribe Button (Left) -->
+    <div class="header-left">
+      <a href="#subscribe" class="btn btn-sm">Subscribe</a>
+    </div>
+
+    <!-- Logo (Center) -->
+    <div class="header-center">
+      <a href="/" class="logo">METTZ</a>
+    </div>
+
+    <!-- Actions (Right) -->
+    <div class="header-right">
+      <button class="icon-btn" aria-label="Search">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </button>
+      <button class="icon-btn" aria-label="Account">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/noticias" class="nav-link">Noticias</a>
+      <a href="/ediciones" class="nav-link">Ediciones</a>
+      <a href="/photomettz" class="nav-link">PhotoMettz</a>
+      <a href="/video" class="nav-link">Video</a>
+      <a href="/mettzglobal" class="nav-link">Mettz Global</a>
+      <a href="/agencia" class="nav-link">Agencia</a>
+      <a href="/podcast" class="nav-link">Podcast</a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    background-color: var(--color-white);
+    border-bottom: var(--border-width) solid var(--border-color);
+    z-index: 1000;
+  }
+
+  .header-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-4) var(--container-padding);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-left,
+  .header-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .header-right {
+    justify-content: flex-end;
+  }
+
+  .header-center {
+    flex: 0 0 auto;
+  }
+
+  /* Logo */
+  .logo {
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-black);
+    text-decoration: none;
+  }
+
+  .logo:hover {
+    opacity: 1;
+  }
+
+  /* Buttons */
+  .btn-sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-xs);
+  }
+
+  .icon-btn {
+    background: none;
+    border: none;
+    padding: var(--space-2);
+    cursor: pointer;
+    color: var(--color-black);
+    transition: opacity var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-btn:hover {
+    opacity: 0.6;
+  }
+
+  /* Menu Toggle (Hamburger) */
+  .menu-toggle {
+    background: none;
+    border: none;
+    padding: var(--space-2);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 28px;
+  }
+
+  .hamburger-line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-black);
+    transition: all var(--transition-base);
+  }
+
+  .menu-toggle:hover .hamburger-line {
+    opacity: 0.6;
+  }
+
+  /* Navigation Bar */
+  .main-nav {
+    border-top: var(--border-width) solid var(--border-color);
+    background-color: var(--color-white);
+  }
+
+  .nav-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-link {
+    padding: var(--space-4) 0;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: border-color var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    opacity: 1;
+    border-bottom-color: var(--color-black);
+  }
+
+  .nav-link.active {
+    border-bottom-color: var(--color-black);
+    font-weight: 600;
+  }
+
+  /* Hide navigation on mobile */
+  @media (max-width: 1023px) {
+    .main-nav {
+      display: none;
+    }
+  }
+
+  /* Hide subscribe button and search/account icons on small mobile */
+  @media (max-width: 639px) {
+    .header-left {
+      display: none;
+    }
+
+    .icon-btn {
+      display: none;
+    }
+
+    .logo {
+      font-size: var(--text-2xl);
+    }
+  }
+</style>
+
+<script>
+  // Menu toggle functionality (will be connected to MobileMenu component)
+  const menuToggle = document.getElementById("menuToggle");
+
+  if (menuToggle) {
+    menuToggle.addEventListener("click", () => {
+      // Dispatch custom event to open mobile menu
+      window.dispatchEvent(new CustomEvent("toggle-mobile-menu"));
+    });
+  }
+
+  // Active navigation state
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  navLinks.forEach((link) => {
+    const linkPath = new URL(link.href).pathname;
+
+    // Check if current path matches link path
+    if (
+      currentPath === linkPath ||
+      (linkPath !== "/" && currentPath.startsWith(linkPath))
+    ) {
+      link.classList.add("active");
+    }
+  });
+</script>

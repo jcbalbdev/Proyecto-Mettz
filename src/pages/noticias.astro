@@ -1,0 +1,301 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import MobileMenu from "../components/MobileMenu.astro";
+import Footer from "../components/Footer.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+
+// Sample articles data - ordenadas de más reciente a más antigua
+const articles = [
+  {
+    category: "Moda",
+    title: "Guardarropa Minimalista: El Nuevo Lujo",
+    excerpt: "Cómo menos se está convirtiendo en más en la alta moda.",
+    date: "10 Feb, 2026",
+    slug: "guardarropa-minimalista",
+  },
+  {
+    category: "Cine",
+    title: "Directora Destacada: María González",
+    excerpt: "La cineasta visionaria redefiniendo la narrativa visual.",
+    date: "9 Feb, 2026",
+    slug: "maria-gonzalez",
+  },
+  {
+    category: "Moda",
+    title: "Lo Mejor de Paris Fashion Week",
+    excerpt:
+      "Los momentos más memorables de las pasarelas de la temporada Primavera 2026.",
+    date: "8 Feb, 2026",
+    slug: "paris-fashion-week",
+  },
+  {
+    category: "Cultura",
+    title: "Arte y Moda: Colaboraciones",
+    excerpt: "Cuando galerías y diseñadores se unen para crear arte vestible.",
+    date: "7 Feb, 2026",
+    slug: "arte-moda",
+  },
+  {
+    category: "Moda",
+    title: "El Futuro del Lujo Sostenible",
+    excerpt:
+      "Explorando cómo los diseñadores líderes están revolucionando la moda con materiales eco-conscientes.",
+    date: "6 Feb, 2026",
+    slug: "lujo-sostenible",
+  },
+  {
+    category: "Cine",
+    title: "Cine Independiente: Nueva Ola",
+    excerpt:
+      "Los cineastas emergentes que están transformando el panorama cinematográfico.",
+    date: "5 Feb, 2026",
+    slug: "cine-independiente",
+  },
+  {
+    category: "Cultura",
+    title: "Fotografía de Moda Experimental",
+    excerpt:
+      "Explorando los límites entre arte y comercio en la fotografía editorial.",
+    date: "4 Feb, 2026",
+    slug: "fotografia-experimental",
+  },
+  {
+    category: "Moda",
+    title: "Tendencias Primavera 2026",
+    excerpt:
+      "Las paletas, siluetas y estilos que definirán la próxima temporada.",
+    date: "3 Feb, 2026",
+    slug: "tendencias-primavera",
+  },
+];
+
+// Extract unique categories for filter
+const categories = [...new Set(articles.map((a) => a.category))];
+---
+
+<Layout title="Noticias - METTZ">
+  <Header />
+  <MobileMenu />
+
+  <main>
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-title">Todas las Noticias</h1>
+        <p class="page-description">
+          Explora nuestro archivo completo de historias sobre moda, cine y
+          cultura.
+        </p>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters-section">
+      <div class="container">
+        <div class="filters-wrapper">
+          <div class="filter-group">
+            <label class="filter-label">Categoría:</label>
+            <select class="filter-select" id="categoryFilter">
+              <option value="all">Todas</option>
+              {categories.map((cat) => <option value={cat}>{cat}</option>)}
+            </select>
+          </div>
+
+          <button class="filter-reset" id="resetFilters">
+            Limpiar filtros
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles Grid -->
+    <section class="articles-section">
+      <div class="container">
+        <div class="articles-grid" id="articlesGrid">
+          {
+            articles.map((article) => (
+              <div class="article-wrapper" data-category={article.category}>
+                <ArticleCard
+                  category={article.category}
+                  title={article.title}
+                  excerpt={article.excerpt}
+                  date={article.date}
+                  link={`/noticias/${article.slug}`}
+                />
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- Load More Button -->
+        <div class="load-more-wrapper">
+          <button class="btn btn-outline">Cargar más artículos</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    background-color: var(--color-gray-100);
+    padding: var(--space-12) 0;
+    text-align: center;
+    border-bottom: var(--border-width) solid var(--border-color);
+  }
+
+  .page-title {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .page-description {
+    font-size: var(--text-lg);
+    color: var(--color-gray-600);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Filters Section */
+  .filters-section {
+    background-color: var(--color-white);
+    padding: var(--space-6) 0;
+    border-bottom: var(--border-width) solid var(--border-color);
+  }
+
+  .filters-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .filter-label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .filter-select {
+    padding: var(--space-2) var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    border: var(--border-width) solid var(--border-color);
+    background-color: var(--color-white);
+    cursor: pointer;
+    transition: border-color var(--transition-fast);
+  }
+
+  .filter-select:focus {
+    outline: none;
+    border-color: var(--color-black);
+  }
+
+  .filter-reset {
+    margin-left: auto;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: var(--border-width) solid var(--color-black);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .filter-reset:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
+  }
+
+  /* Articles Section */
+  .articles-section {
+    padding: var(--space-12) 0;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    margin-bottom: var(--space-12);
+  }
+
+  .article-wrapper {
+    transition: opacity var(--transition-base);
+  }
+
+  .article-wrapper.hidden {
+    display: none;
+  }
+
+  .load-more-wrapper {
+    text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .articles-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-12);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .articles-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .page-title {
+      font-size: var(--text-6xl);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .filter-reset {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Filter functionality
+  const categoryFilter = document.getElementById(
+    "categoryFilter",
+  ) as HTMLSelectElement;
+  const resetButton = document.getElementById("resetFilters");
+  const articleWrappers = document.querySelectorAll(".article-wrapper");
+
+  function filterArticles() {
+    const selectedCategory = categoryFilter.value;
+
+    articleWrappers.forEach((wrapper) => {
+      const category = wrapper.getAttribute("data-category");
+
+      if (selectedCategory === "all" || category === selectedCategory) {
+        wrapper.classList.remove("hidden");
+      } else {
+        wrapper.classList.add("hidden");
+      }
+    });
+  }
+
+  categoryFilter?.addEventListener("change", filterArticles);
+
+  resetButton?.addEventListener("click", () => {
+    categoryFilter.value = "all";
+    filterArticles();
+  });
+</script>

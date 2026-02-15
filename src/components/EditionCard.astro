@@ -1,0 +1,130 @@
+---
+interface Props {
+  issueNumber: string;
+  title: string;
+  season: string;
+  year: string;
+  coverImageUrl?: string;
+  slug: string;
+}
+
+const { issueNumber, title, season, year, coverImageUrl, slug } = Astro.props;
+---
+
+<article class="edition-card">
+  <a href={`/ediciones/${slug}`} class="edition-link">
+    <div class="edition-cover">
+      {
+        coverImageUrl ? (
+          <img src={coverImageUrl} alt={title} class="cover-image" />
+        ) : (
+          <div class="cover-placeholder">
+            <span class="edition-logo">METTZ</span>
+            <span class="edition-issue">{issueNumber}</span>
+          </div>
+        )
+      }
+    </div>
+    <div class="edition-info">
+      <h3 class="edition-title">{title}</h3>
+      <p class="edition-meta">{season} {year}</p>
+    </div>
+  </a>
+</article>
+
+<style>
+  .edition-card {
+    flex: 0 0 auto;
+    width: 280px;
+  }
+
+  .edition-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .edition-cover {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    margin-bottom: var(--space-3);
+    background-color: var(--color-gray-200);
+  }
+
+  .cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .edition-link:hover .cover-image {
+    transform: scale(1.05);
+  }
+
+  .cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-base);
+  }
+
+  .edition-link:hover .cover-placeholder {
+    transform: translateY(-4px);
+  }
+
+  .edition-logo {
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--color-white);
+    margin-bottom: var(--space-2);
+  }
+
+  .edition-issue {
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .edition-info {
+    padding: 0;
+  }
+
+  .edition-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+    color: var(--color-black);
+    transition: opacity var(--transition-fast);
+  }
+
+  .edition-link:hover .edition-title {
+    opacity: 0.7;
+  }
+
+  .edition-meta {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    margin: 0;
+  }
+
+  @media (max-width: 639px) {
+    .edition-card {
+      width: 200px;
+    }
+
+    .edition-cover {
+      height: 280px;
+    }
+  }
+</style>

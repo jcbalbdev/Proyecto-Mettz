@@ -1,0 +1,159 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import MobileMenu from "../components/MobileMenu.astro";
+import HeroSection from "../components/HeroSection.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+import EditionBanner from "../components/EditionBanner.astro";
+import DateNewsFeed from "../components/DateNewsFeed.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout>
+	<Header />
+	<MobileMenu />
+
+	<main>
+		<!-- Hero Section -->
+		<section class="container" style="margin-top: var(--space-8);">
+			<HeroSection
+				category="Moda"
+				title="El Futuro del Lujo Sostenible"
+				description="Explorando cómo los diseñadores líderes están revolucionando la moda con materiales eco-conscientes y elegancia atemporal."
+				link="/article/sustainable-luxury"
+			/>
+		</section>
+
+		<!-- Article Grid -->
+		<section class="section">
+			<div class="container">
+				<div class="section-header">
+					<h2 class="section-title">Últimas Historias</h2>
+				</div>
+
+				<div class="article-grid">
+					<ArticleCard
+						category="Moda"
+						title="Guardarropa Minimalista: El Nuevo Lujo"
+						excerpt="Cómo menos se está convirtiendo en más en la alta moda."
+						link="/noticias/guardarropa-minimalista"
+						date="10 Feb, 2026"
+					/>
+					<ArticleCard
+						category="Cine"
+						title="Directora Destacada: María González"
+						excerpt="La cineasta visionaria redefiniendo la narrativa visual."
+						link="/noticias/maria-gonzalez"
+						date="9 Feb, 2026"
+					/>
+					<ArticleCard
+						category="Moda"
+						title="Lo Mejor de Paris Fashion Week"
+						excerpt="Los momentos más memorables de las pasarelas de la temporada Primavera 2026."
+						link="/noticias/paris-fashion-week"
+						date="8 Feb, 2026"
+					/>
+					<ArticleCard
+						category="Cultura"
+						title="Arte y Moda: Colaboraciones"
+						excerpt="Cuando galerías y diseñadores se unen para crear arte vestible."
+						link="/noticias/arte-moda"
+						date="7 Feb, 2026"
+					/>
+				</div>
+			</div>
+		</section>
+
+		<!-- Edition Banner -->
+		<EditionBanner />
+
+		<!-- Date News Feed -->
+		<DateNewsFeed />
+
+		<!-- Subscription CTA -->
+		<section class="subscribe-section">
+			<div class="container">
+				<div class="subscribe-content">
+					<h2 class="subscribe-title">No Te Pierdas Ninguna Historia</h2>
+					<p class="subscribe-text">
+						Suscríbete a METTZ y obtén acceso exclusivo a editoriales de moda,
+						análisis cinematográficos y comentarios culturales directo en tu
+						correo.
+					</p>
+					<a href="#subscribe" class="btn">Suscribirse Ahora</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	main {
+		min-height: 100vh;
+	}
+
+	.section {
+		padding: var(--space-12) 0;
+	}
+
+	.section-header {
+		margin-bottom: var(--space-8);
+		text-align: center;
+	}
+
+	.section-title {
+		font-family: var(--font-serif);
+		font-size: var(--text-3xl);
+		font-weight: 400;
+		margin: 0;
+	}
+
+	.article-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-10);
+	}
+
+	.subscribe-section {
+		background-color: var(--color-gray-100);
+		padding: var(--space-16) 0;
+		text-align: center;
+	}
+
+	.subscribe-content {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.subscribe-title {
+		font-family: var(--font-serif);
+		font-size: var(--text-4xl);
+		margin-bottom: var(--space-4);
+	}
+
+	.subscribe-text {
+		font-size: var(--text-lg);
+		color: var(--color-gray-600);
+		line-height: 1.6;
+		margin-bottom: var(--space-6);
+	}
+
+	@media (min-width: 640px) {
+		.article-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: var(--space-12);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.article-grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.section-title {
+			font-size: var(--text-4xl);
+		}
+	}
+</style>

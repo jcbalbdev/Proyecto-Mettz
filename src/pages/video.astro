@@ -1,0 +1,199 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import MobileMenu from "../components/MobileMenu.astro";
+import Footer from "../components/Footer.astro";
+
+const categories = [
+  {
+    id: "fashionfilms",
+    label: "FASHIONFILMS",
+    description: "Fashion films mensuales desde noviembre 2024",
+  },
+  {
+    id: "makingoff",
+    label: "MAKING OFF",
+    description: "Behind the scenes de nuestras producciones",
+  },
+  {
+    id: "looks",
+    label: "LOOKS DEL TEAM",
+    description: "El equipo METTZ comparte sus looks favoritos",
+  },
+  {
+    id: "preguntas",
+    label: "11 PREGUNTAS",
+    description: "Preguntas al equipo y colaboradores",
+  },
+  {
+    id: "podcast",
+    label: "CONVERSA CON METTZ",
+    description: "Nuestro podcast sobre moda, cine y cultura",
+  },
+];
+---
+
+<Layout title="Video - METTZ">
+  <Header />
+  <MobileMenu />
+
+  <main class="video-page">
+    <!-- Hero Section -->
+    <section class="video-hero">
+      <div class="container-narrow">
+        <h1 class="video-title">Video</h1>
+        <p class="video-description">
+          METTZ Video te trae todas tus series favoritas, desde FashionFilms
+          hasta Conversa con METTZ. Obtén acceso exclusivo a los eventos más
+          importantes, las últimas tendencias de moda, behind the scenes de
+          nuestras producciones y más. Acompáñanos mientras conocemos a
+          celebridades, modelos y diseñadores que no te puedes perder. Nuestro
+          objetivo es inspirar y empoderar a nuestra audiencia a través de la
+          moda, el cine y la cultura.
+        </p>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+      <div class="container">
+        <div class="categories-grid">
+          {
+            categories.map((category) => (
+              <div class="category-card">
+                <div class="category-placeholder">
+                  <svg
+                    width="64"
+                    height="64"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1"
+                  >
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                </div>
+                <h2 class="category-title">{category.label}</h2>
+                <p class="category-description">{category.description}</p>
+                <p class="coming-soon">Próximamente</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Hero Section */
+  .video-hero {
+    padding: var(--space-16) 0;
+    text-align: center;
+    border-bottom: var(--border-width) solid var(--border-color);
+  }
+
+  .container-narrow {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  .video-title {
+    font-size: var(--text-6xl);
+    margin-bottom: var(--space-6);
+    font-weight: 400;
+  }
+
+  .video-description {
+    font-size: var(--text-base);
+    line-height: 1.8;
+    color: var(--color-gray-700);
+  }
+
+  /* Categories Section */
+  .categories-section {
+    padding: var(--space-16) 0;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .category-card {
+    padding: var(--space-10);
+    border: var(--border-width) solid var(--border-color);
+    text-align: center;
+    transition: all var(--transition-base);
+    background-color: var(--color-white);
+  }
+
+  .category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .category-placeholder {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto var(--space-6);
+    background-color: var(--color-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-400);
+  }
+
+  .category-title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-3);
+    color: var(--color-black);
+  }
+
+  .category-description {
+    font-size: var(--text-base);
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-4);
+    line-height: 1.6;
+  }
+
+  .coming-soon {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-gray-500);
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (min-width: 640px) {
+    .categories-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-10);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .categories-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .video-title {
+      font-size: 5rem;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .video-title {
+      font-size: var(--text-5xl);
+    }
+  }
+</style>

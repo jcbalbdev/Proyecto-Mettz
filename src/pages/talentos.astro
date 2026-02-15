@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import MobileMenu from "../components/MobileMenu.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Talentos Emergentes - METTZ">
+  <Header />
+  <MobileMenu />
+
+  <main class="empty-page">
+    <section class="empty-hero">
+      <div class="container-narrow">
+        <h1 class="page-title">Talentos Emergentes</h1>
+        <p class="page-subtitle">Descubriendo la próxima generación creativa</p>
+        <p class="coming-soon-text">
+          Contenido próximamente. Esta página destacará diseñadores emergentes,
+          fotógrafos, directores y artistas que están redefiniendo la moda y la
+          cultura.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .empty-page {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .empty-hero {
+    padding: var(--space-20) 0;
+    text-align: center;
+  }
+
+  .container-narrow {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  .page-title {
+    font-size: var(--text-6xl);
+    margin-bottom: var(--space-4);
+    font-weight: 400;
+  }
+
+  .page-subtitle {
+    font-size: var(--text-xl);
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-8);
+  }
+
+  .coming-soon-text {
+    font-size: var(--text-base);
+    color: var(--color-gray-700);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 639px) {
+    .page-title {
+      font-size: var(--text-5xl);
+    }
+
+    .page-subtitle {
+      font-size: var(--text-lg);
+    }
+  }
+</style>

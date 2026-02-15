@@ -1,0 +1,222 @@
+---
+
+---
+
+<section class="date-news-feed">
+  <div class="container">
+    <div class="feed-header">
+      <span class="feed-date">January 23</span>
+    </div>
+
+    <div class="news-grid">
+      <!-- News Item 1 -->
+      <a href="#" class="news-item">
+        <div class="news-image-wrapper">
+          <div class="news-image-placeholder">
+            <svg
+              class="play-icon"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="white"
+            >
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+        </div>
+        <h4 class="news-title">Just Dance: Carmen</h4>
+      </a>
+
+      <!-- News Item 2 -->
+      <a href="#" class="news-item">
+        <div class="news-image-wrapper">
+          <div
+            class="news-image-placeholder"
+            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"
+          >
+          </div>
+        </div>
+        <h4 class="news-title">Minimalism Reimagined: Archive Design</h4>
+      </a>
+
+      <!-- News Item 3 -->
+      <a href="#" class="news-item">
+        <div class="news-image-wrapper">
+          <div
+            class="news-image-placeholder"
+            style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"
+          >
+          </div>
+        </div>
+        <h4 class="news-title">
+          Quest and Self-Care: Interview with David Moritz
+        </h4>
+      </a>
+
+      <!-- News Item 4 -->
+      <a href="#" class="news-item">
+        <div class="news-image-wrapper">
+          <div
+            class="news-image-placeholder"
+            style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"
+          >
+          </div>
+        </div>
+        <h4 class="news-title">Winter Fashion: Sustainable Luxury</h4>
+      </a>
+    </div>
+
+    <!-- Second date section -->
+    <div class="feed-header" style="margin-top: var(--space-12);">
+      <span class="feed-date">January 19</span>
+    </div>
+
+    <div class="news-grid">
+      <!-- News Item 5 -->
+      <a href="#" class="news-item">
+        <div class="news-image-wrapper">
+          <div
+            class="news-image-placeholder"
+            style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"
+          >
+          </div>
+        </div>
+        <h4 class="news-title">Actor, Model, Journalist—Hailey Benton Gates</h4>
+      </a>
+
+      <!-- News Item 6 -->
+      <a href="#" class="news-item">
+        <div class="news-image-wrapper">
+          <div
+            class="news-image-placeholder"
+            style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"
+          >
+          </div>
+        </div>
+        <h4 class="news-title">Inside D.S. & Durga's Music Filled Lab</h4>
+      </a>
+
+      <!-- News Item 7 -->
+      <a href="#" class="news-item">
+        <div class="news-image-wrapper">
+          <div
+            class="news-image-placeholder"
+            style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"
+          >
+          </div>
+        </div>
+        <h4 class="news-title">Cinema Renaissance: Documentary Film Week</h4>
+      </a>
+
+      <!-- News Item 8 -->
+      <a href="#" class="news-item">
+        <div class="news-image-wrapper">
+          <div
+            class="news-image-placeholder"
+            style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);"
+          >
+          </div>
+        </div>
+        <h4 class="news-title">Behind the Lens: Portrait Photography</h4>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .date-news-feed {
+    padding: var(--space-12) 0;
+  }
+
+  .feed-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .feed-date {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-black);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--color-black);
+    display: inline-block;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  .news-item {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .news-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%; /* 4:3 aspect ratio */
+    overflow: hidden;
+    margin-bottom: var(--space-3);
+  }
+
+  .news-image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-base);
+  }
+
+  .news-item:hover .news-image-placeholder {
+    transform: scale(1.05);
+  }
+
+  .play-icon {
+    opacity: 0.9;
+    transition: opacity var(--transition-fast);
+  }
+
+  .news-item:hover .play-icon {
+    opacity: 1;
+  }
+
+  .news-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--color-black);
+    margin: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .news-item:hover .news-title {
+    opacity: 0.7;
+  }
+
+  @media (min-width: 640px) {
+    .news-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .news-title {
+      font-size: var(--text-lg);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .news-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-8);
+    }
+  }
+</style>

@@ -1,0 +1,234 @@
+---
+
+---
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-overlay"></div>
+
+  <div class="mobile-menu-content">
+    <!-- Close Button -->
+    <button class="close-btn" id="closeMenu" aria-label="Close menu">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Menu Items -->
+    <nav class="mobile-nav">
+      <ul class="menu-list">
+        <li>
+          <a href="/" class="menu-item">Home</a>
+        </li>
+        <li>
+          <a href="/noticias" class="menu-item">Noticias</a>
+        </li>
+        <li>
+          <a href="/ediciones" class="menu-item">Ediciones</a>
+        </li>
+        <li>
+          <a href="/photomettz" class="menu-item">PhotoMettz</a>
+        </li>
+        <li>
+          <a href="/video" class="menu-item">Video</a>
+        </li>
+        <li>
+          <a href="/mettzglobal" class="menu-item">Mettz Global</a>
+        </li>
+        <li>
+          <a href="/agencia" class="menu-item">Agencia</a>
+        </li>
+        <li>
+          <a href="/podcast" class="menu-item">Podcast</a>
+        </li>
+        <li>
+          <a href="/proyectos" class="menu-item">Proyectos</a>
+        </li>
+        <li>
+          <a href="/archivo" class="menu-item">Mettz Archivo</a>
+        </li>
+        <li>
+          <a href="/talentos" class="menu-item">Talentos Emergentes</a>
+        </li>
+      </ul>
+
+      <!-- Social Links -->
+      <div class="menu-footer">
+        <div class="social-links">
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="Twitter">Twitter</a>
+          <a href="#" aria-label="Facebook">Facebook</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    visibility: hidden;
+    transition: visibility 0s var(--transition-slow);
+  }
+
+  .mobile-menu.is-open {
+    visibility: visible;
+    transition: visibility 0s;
+  }
+
+  .mobile-menu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity var(--transition-slow);
+  }
+
+  .mobile-menu.is-open .mobile-menu-overlay {
+    opacity: 1;
+  }
+
+  .mobile-menu-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--color-white);
+    transform: translateX(100%);
+    transition: transform var(--transition-slow);
+    overflow-y: auto;
+    padding: var(--space-6);
+  }
+
+  .mobile-menu.is-open .mobile-menu-content {
+    transform: translateX(0);
+  }
+
+  /* Close Button */
+  .close-btn {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    background: none;
+    border: none;
+    padding: var(--space-2);
+    cursor: pointer;
+    color: var(--color-black);
+    transition: opacity var(--transition-fast);
+  }
+
+  .close-btn:hover {
+    opacity: 0.6;
+  }
+
+  /* Navigation */
+  .mobile-nav {
+    margin-top: var(--space-12);
+  }
+
+  .menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menu-item {
+    display: block;
+    padding: var(--space-4) 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    color: var(--color-black);
+    text-decoration: none;
+    border-bottom: var(--border-width) solid var(--border-color);
+    transition: opacity var(--transition-fast);
+  }
+
+  .menu-item:hover {
+    opacity: 0.6;
+  }
+
+  /* Menu Footer */
+  .menu-footer {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: var(--border-width) solid var(--border-color);
+  }
+
+  .social-links {
+    display: flex;
+    gap: var(--space-6);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .social-links a {
+    color: var(--color-gray-600);
+    transition: color var(--transition-fast);
+  }
+
+  .social-links a:hover {
+    color: var(--color-black);
+    opacity: 1;
+  }
+
+  @media (min-width: 640px) {
+    .mobile-menu-content {
+      max-width: 500px;
+    }
+
+    .menu-item {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
+
+<script>
+  // Mobile menu functionality
+  const mobileMenu = document.getElementById("mobileMenu");
+  const closeBtn = document.getElementById("closeMenu");
+  const overlay = mobileMenu?.querySelector(".mobile-menu-overlay");
+
+  function openMenu() {
+    mobileMenu?.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    mobileMenu?.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+
+  // Listen for toggle event from Header
+  window.addEventListener("toggle-mobile-menu", openMenu);
+
+  // Close button click
+  closeBtn?.addEventListener("click", closeMenu);
+
+  // Click overlay to close
+  overlay?.addEventListener("click", closeMenu);
+
+  // Close on escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mobileMenu?.classList.contains("is-open")) {
+      closeMenu();
+    }
+  });
+</script>
