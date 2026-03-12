@@ -2,13 +2,13 @@
 interface Props {
   issueNumber: string;
   title: string;
-  season: string;
+  month: string;
   year: string;
   coverImageUrl?: string;
   slug: string;
 }
 
-const { issueNumber, title, season, year, coverImageUrl, slug } = Astro.props;
+const { issueNumber, title, month, year, coverImageUrl, slug } = Astro.props;
 ---
 
 <article class="edition-card">
@@ -27,7 +27,7 @@ const { issueNumber, title, season, year, coverImageUrl, slug } = Astro.props;
     </div>
     <div class="edition-info">
       <h3 class="edition-title">{title}</h3>
-      <p class="edition-meta">{season} {year}</p>
+      <p class="edition-meta">{month} {year}</p>
     </div>
   </a>
 </article>

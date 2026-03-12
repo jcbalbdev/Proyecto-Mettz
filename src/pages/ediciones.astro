@@ -4,26 +4,13 @@ import Header from '../components/Header.astro';
 import MobileMenu from '../components/MobileMenu.astro';
 import Footer from '../components/Footer.astro';
 import EditionCard from '../components/EditionCard.astro';
+import { editionsListing } from '../data/editions';
 
-// Sample editions data - ordenadas de más reciente a más antigua
-const editions = [
-	{ issueNumber: 'Issue 12', title: 'Winter Reflections', season: 'Winter', year: '2026', slug: 'winter-reflections-2026', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-	{ issueNumber: 'Issue 11', title: 'Fall Elegance', season: 'Fall', year: '2026', slug: 'fall-elegance-2026', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
-	{ issueNumber: 'Issue 10', title: 'Summer Cinema', season: 'Summer', year: '2026', slug: 'summer-cinema-2026', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-	{ issueNumber: 'Issue 09', title: 'Spring Fashion', season: 'Spring', year: '2026', slug: 'spring-fashion-2026', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
-	{ issueNumber: 'Issue 08', title: 'Winter Luxe', season: 'Winter', year: '2025', slug: 'winter-luxe-2025', gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' },
-	{ issueNumber: 'Issue 07', title: 'Fall Trends', season: 'Fall', year: '2025', slug: 'fall-trends-2025', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
-	{ issueNumber: 'Issue 06', title: 'Summer Vibes', season: 'Summer', year: '2025', slug: 'summer-vibes-2025', gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)' },
-	{ issueNumber: 'Issue 05', title: 'Spring Collection', season: 'Spring', year: '2025', slug: 'spring-collection-2025', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)' },
-	{ issueNumber: 'Issue 04', title: 'Winter Stories', season: 'Winter', year: '2024', slug: 'winter-stories-2024', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-	{ issueNumber: 'Issue 03', title: 'Fall Edition', season: 'Fall', year: '2024', slug: 'fall-edition-2024', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
-	{ issueNumber: 'Issue 02', title: 'Summer Special', season: 'Summer', year: '2024', slug: 'summer-special-2024', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-	{ issueNumber: 'Issue 01', title: 'Launch Issue', season: 'Spring', year: '2024', slug: 'launch-issue-2024', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
-];
+const editions = editionsListing;
 
-// Extract unique years and seasons for filters
+// Extraer años únicos y meses para filtros
 const years = [...new Set(editions.map(e => e.year))].sort((a, b) => b.localeCompare(a));
-const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
+const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 ---
 
 <Layout title="Ediciones - METTZ">
@@ -60,11 +47,11 @@ const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
 					</div>
 
 					<div class="filter-group">
-						<label class="filter-label">Temporada:</label>
-						<select class="filter-select" id="seasonFilter">
-							<option value="all">Todas</option>
-							{seasons.map(season => (
-								<option value={season}>{season}</option>
+						<label class="filter-label">Mes:</label>
+						<select class="filter-select" id="monthFilter">
+							<option value="all">Todos</option>
+							{months.map(month => (
+								<option value={month}>{month}</option>
 							))}
 						</select>
 					</div>
@@ -81,20 +68,16 @@ const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
 			<div class="container">
 				<div class="editions-wrapper">
 					<div class="editions-scroll" id="editionsScroll">
-						{editions.map((edition, index) => (
-							<div class="edition-wrapper" data-year={edition.year} data-season={edition.season}>
+						{editions.map((edition) => (
+							<div class="edition-wrapper" data-year={edition.year} data-month={edition.month}>
 								<EditionCard 
 									issueNumber={edition.issueNumber}
 									title={edition.title}
-									season={edition.season}
+									month={edition.month}
 									year={edition.year}
 									slug={edition.slug}
+									coverImageUrl={edition.coverImage}
 								/>
-								<style define:vars={{ editionGradient: edition.gradient }}>
-									.edition-wrapper:nth-child({index + 1}) .cover-placeholder {
-										background: var(--editionGradient);
-									}
-								</style>
 							</div>
 						))}
 					</div>
@@ -307,22 +290,22 @@ const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
 <script>
 	// Filter functionality
 	const yearFilter = document.getElementById('yearFilter') as HTMLSelectElement;
-	const seasonFilter = document.getElementById('seasonFilter') as HTMLSelectElement;
+	const monthFilter = document.getElementById('monthFilter') as HTMLSelectElement;
 	const resetButton = document.getElementById('resetFilters');
 	const editionWrappers = document.querySelectorAll('.edition-wrapper');
 
 	function filterEditions() {
 		const selectedYear = yearFilter.value;
-		const selectedSeason = seasonFilter.value;
+		const selectedMonth = monthFilter.value;
 
 		editionWrappers.forEach((wrapper) => {
 			const year = wrapper.getAttribute('data-year');
-			const season = wrapper.getAttribute('data-season');
+			const month = wrapper.getAttribute('data-month');
 
 			const yearMatch = selectedYear === 'all' || year === selectedYear;
-			const seasonMatch = selectedSeason === 'all' || season === selectedSeason;
+			const monthMatch = selectedMonth === 'all' || month === selectedMonth;
 
-			if (yearMatch && seasonMatch) {
+			if (yearMatch && monthMatch) {
 				wrapper.classList.remove('hidden');
 			} else {
 				wrapper.classList.add('hidden');
@@ -331,11 +314,11 @@ const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
 	}
 
 	yearFilter?.addEventListener('change', filterEditions);
-	seasonFilter?.addEventListener('change', filterEditions);
+	monthFilter?.addEventListener('change', filterEditions);
 
 	resetButton?.addEventListener('click', () => {
 		yearFilter.value = 'all';
-		seasonFilter.value = 'all';
+		monthFilter.value = 'all';
 		filterEditions();
 	});
 

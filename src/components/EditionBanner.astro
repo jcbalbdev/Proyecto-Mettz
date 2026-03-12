@@ -1,5 +1,7 @@
 ---
+import { editionsListing } from "../data/editions";
 
+const editions = editionsListing;
 ---
 
 <section class="edition-banner">
@@ -36,81 +38,27 @@
 
     <div class="editions-wrapper">
       <div class="editions-scroll" id="editionsScroll">
-        <!-- Edition 1 -->
-        <div class="edition-card">
-          <div class="edition-cover">
-            <div class="edition-image-placeholder">
-              <span class="edition-label">METTZ</span>
-              <span class="edition-issue">Issue 01</span>
+        {editions.map((edition) => (
+          <a href={`/ediciones/${edition.slug}`} class="edition-card">
+            <div class="edition-cover">
+              <div class="edition-image-container">
+                <img 
+                  src={edition.coverImage} 
+                  alt={`${edition.title} Cover`}
+                  class="edition-img"
+                  loading="lazy"
+                />
+              </div>
             </div>
-          </div>
-          <h3 class="edition-title">Spring Issue 2026</h3>
-          <p class="edition-subtitle">Cover Story: The Future of Fashion</p>
-        </div>
-
-        <!-- Edition 2 -->
-        <div class="edition-card">
-          <div class="edition-cover">
-            <div
-              class="edition-image-placeholder"
-              style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"
-            >
-              <span class="edition-label">METTZ</span>
-              <span class="edition-issue">Issue 02</span>
-            </div>
-          </div>
-          <h3 class="edition-title">Summer Cinema Special</h3>
-          <p class="edition-subtitle">Directors Redefining Film</p>
-        </div>
-
-        <!-- Edition 3 -->
-        <div class="edition-card">
-          <div class="edition-cover">
-            <div
-              class="edition-image-placeholder"
-              style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"
-            >
-              <span class="edition-label">METTZ</span>
-              <span class="edition-issue">Issue 03</span>
-            </div>
-          </div>
-          <h3 class="edition-title">Fall Fashion Week</h3>
-          <p class="edition-subtitle">Paris, Milan & New York</p>
-        </div>
-
-        <!-- Edition 4 -->
-        <div class="edition-card">
-          <div class="edition-cover">
-            <div
-              class="edition-image-placeholder"
-              style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"
-            >
-              <span class="edition-label">METTZ</span>
-              <span class="edition-issue">Issue 04</span>
-            </div>
-          </div>
-          <h3 class="edition-title">Winter Elegance</h3>
-          <p class="edition-subtitle">Luxury & Minimalism</p>
-        </div>
-
-        <!-- Edition 5 -->
-        <div class="edition-card">
-          <div class="edition-cover">
-            <div
-              class="edition-image-placeholder"
-              style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"
-            >
-              <span class="edition-label">METTZ</span>
-              <span class="edition-issue">Issue 05</span>
-            </div>
-          </div>
-          <h3 class="edition-title">Anniversary Edition</h3>
-          <p class="edition-subtitle">A Year of Innovation</p>
-        </div>
+            <h3 class="edition-title">{edition.title}</h3>
+            <p class="edition-subtitle">{edition.month} {edition.year}</p>
+          </a>
+        ))}
       </div>
     </div>
   </div>
 </section>
+
 
 <style>
   .edition-banner {
@@ -180,42 +128,38 @@
   .edition-card {
     flex: 0 0 auto;
     width: 200px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
   }
 
   .edition-cover {
     margin-bottom: var(--space-3);
-    cursor: pointer;
+    overflow: hidden;
   }
 
-  .edition-image-placeholder {
+  .edition-image-container {
     width: 100%;
     height: 280px;
-    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-white);
+    background-color: var(--color-gray-100);
+    position: relative;
+    overflow: hidden;
     transition: transform var(--transition-base);
   }
 
-  .edition-card:hover .edition-image-placeholder {
+  .edition-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .edition-card:hover .edition-image-container {
     transform: translateY(-4px);
   }
 
-  .edition-label {
-    font-family: var(--font-serif);
-    font-size: var(--text-3xl);
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    margin-bottom: var(--space-2);
-  }
-
-  .edition-issue {
-    font-size: var(--text-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    opacity: 0.8;
+  .edition-card:hover .edition-img {
+    transform: scale(1.05);
   }
 
   .edition-title {
@@ -237,7 +181,7 @@
       width: 240px;
     }
 
-    .edition-image-placeholder {
+    .edition-image-container {
       height: 340px;
     }
 
@@ -251,7 +195,7 @@
       width: 280px;
     }
 
-    .edition-image-placeholder {
+    .edition-image-container {
       height: 400px;
     }
   }
