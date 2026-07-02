@@ -12,7 +12,7 @@
           Suscríbete a nuestro newsletter para recibir las últimas novedades
           sobre moda y cine.
         </p>
-        <form class="newsletter-form">
+        <form class="newsletter-form" id="newsletterForm">
           <input
             type="email"
             placeholder="Ingresa tu email"
@@ -68,6 +68,16 @@
     </div>
   </div>
 </footer>
+
+<script>
+  import { showToast } from "../scripts/toast";
+
+  // Newsletter aún no disponible: avisar al usuario sin enviar el formulario
+  document.getElementById("newsletterForm")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    showToast("¡Muy pronto! Estamos preparando las suscripciones METTZ.");
+  });
+</script>
 
 <style>
   .site-footer {

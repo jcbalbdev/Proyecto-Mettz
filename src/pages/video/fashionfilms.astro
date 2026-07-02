@@ -1,0 +1,22 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import MobileMenu from "../../components/MobileMenu.astro";
+import Footer from "../../components/Footer.astro";
+import VideoGallery from "../../components/VideoGallery.astro";
+import { fashionFilms } from "../../data/fashionFilms";
+---
+
+<Layout title="FashionFilms - METTZ">
+  <Header />
+  <MobileMenu />
+
+  <VideoGallery
+    title="FashionFilms"
+    description="Fashion films mensuales desde noviembre 2024. Cada edición de METTZ cobra vida en movimiento: una pieza audiovisual que traduce la estética de nuestra portada al lenguaje del cine."
+    videos={fashionFilms}
+    placeholderLabel="FashionFilm"
+  />
+
+  <Footer />
+</Layout>

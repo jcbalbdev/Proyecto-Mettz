@@ -33,6 +33,8 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
           src={edition.heroImage.src}
           alt={edition.heroImage.alt}
           class="hero-bg-image"
+          fetchpriority="high"
+          decoding="async"
         />
         <div class="hero-overlay">
           <div class="container">
@@ -64,6 +66,8 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
           src={edition.featuredImage.src}
           alt={edition.featuredImage.alt}
           class="editorial-image"
+          loading="lazy"
+          decoding="async"
           style="height: 70vh; width: 100%; object-fit: cover;"
         />
         <p class="image-caption">{edition.featuredImage.caption}</p>
@@ -89,6 +93,8 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
               src={edition.gridImages.large.src}
               alt={edition.gridImages.large.alt}
               class="editorial-image"
+              loading="lazy"
+              decoding="async"
               style="height: 500px; width: 100%; object-fit: cover;"
             />
             <p class="image-caption">{edition.gridImages.large.caption}</p>
@@ -98,6 +104,8 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
               src={edition.gridImages.small1.src}
               alt={edition.gridImages.small1.alt}
               class="editorial-image"
+              loading="lazy"
+              decoding="async"
               style="height: 240px; width: 100%; object-fit: cover; object-position: top;"
             />
             <p class="image-caption">{edition.gridImages.small1.caption}</p>
@@ -107,6 +115,8 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
               src={edition.gridImages.small2.src}
               alt={edition.gridImages.small2.alt}
               class="editorial-image"
+              loading="lazy"
+              decoding="async"
               style="height: 240px; width: 100%; object-fit: cover;"
             />
             <p class="image-caption">{edition.gridImages.small2.caption}</p>
@@ -136,6 +146,8 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
           src={edition.fullWidthImage.src}
           alt={edition.fullWidthImage.alt}
           class="editorial-image"
+          loading="lazy"
+          decoding="async"
           style="height: 80vh; width: 100%; object-fit: cover; object-position: center 30%;"
         />
         <p class="image-caption">{edition.fullWidthImage.caption}</p>
@@ -166,6 +178,8 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
           src={edition.closingImage.src}
           alt={edition.closingImage.alt}
           class="editorial-image"
+          loading="lazy"
+          decoding="async"
           style="height: 60vh; width: 100%; object-fit: cover;"
         />
         <p class="image-caption">{edition.closingImage.caption}</p>
@@ -180,7 +194,7 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
           <p class="cta-text">{edition.ctaDescription}</p>
 
           <div class="cta-buttons">
-            <a href={edition.pdfPath} class="btn btn-large btn-primary" download>
+            <a href={edition.pdfUrl} class="btn btn-large btn-primary" target="_blank" rel="noopener noreferrer">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -212,6 +226,13 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
       </div>
     </section>
   </main>
+
+  <div class="toast" id="copyToast" role="status" aria-live="polite">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    ¡Enlace copiado al portapapeles!
+  </div>
 
   <Footer />
 </Layout>
@@ -272,6 +293,9 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
   .back-link { display: inline-block; margin-top: var(--space-6); color: var(--color-gray-600); font-size: var(--text-base); transition: color var(--transition-fast); }
   .back-link:hover { color: var(--color-black); }
 
+  .toast { position: fixed; bottom: var(--space-8); left: 50%; transform: translateX(-50%) translateY(var(--space-4)); display: inline-flex; align-items: center; gap: var(--space-2); background-color: var(--color-black); color: var(--color-white); padding: var(--space-3) var(--space-6); font-size: var(--text-base); opacity: 0; visibility: hidden; transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast); z-index: 1000; }
+  .toast.visible { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
   @media (min-width: 640px) {
     .cta-buttons { flex-direction: row; justify-content: center; }
     .image-grid { grid-template-columns: repeat(2, 1fr); }
@@ -291,6 +315,15 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
   const shareButton = document.getElementById("shareButton");
   const shareMenu = document.getElementById("shareMenu");
   const shareOptions = document.querySelectorAll(".share-option");
+  const copyToast = document.getElementById("copyToast");
+  let toastTimeout;
+
+  function showToast() {
+    if (!copyToast) return;
+    copyToast.classList.add("visible");
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => copyToast.classList.remove("visible"), 2500);
+  }
 
   shareButton?.addEventListener("click", () => {
     if (shareMenu) {
@@ -314,8 +347,7 @@ const shareTitle = `METTZ - ${edition.title} ${edition.issueNumber}`;
           window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, "_blank");
           break;
         case "copy":
-          navigator.clipboard.writeText(url);
-          alert("¡Enlace copiado al portapapeles!");
+          navigator.clipboard.writeText(url).then(showToast);
           break;
       }
 

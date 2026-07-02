@@ -1,0 +1,22 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import MobileMenu from "../../components/MobileMenu.astro";
+import Footer from "../../components/Footer.astro";
+import VideoGallery from "../../components/VideoGallery.astro";
+import { makingOfVideos } from "../../data/makingOf";
+---
+
+<Layout title="Making Off - METTZ">
+  <Header />
+  <MobileMenu />
+
+  <VideoGallery
+    title="Making Off"
+    description="Behind the scenes de nuestras producciones. Descubre cómo se construye cada editorial de METTZ: el detrás de cámaras de las sesiones, el vestuario y la dirección creativa de cada edición."
+    videos={makingOfVideos}
+    placeholderLabel="Making Off"
+  />
+
+  <Footer />
+</Layout>

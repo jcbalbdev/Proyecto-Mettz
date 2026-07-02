@@ -115,10 +115,15 @@ const editions = editionsListing;
     display: flex;
     gap: var(--space-6);
     overflow-x: auto;
-    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    cursor: grab;
+  }
+
+  .editions-scroll.dragging {
+    cursor: grabbing;
+    user-select: none;
   }
 
   .editions-scroll::-webkit-scrollbar {
@@ -202,25 +207,14 @@ const editions = editionsListing;
 </style>
 
 <script>
+  import { initOrganicCarousel } from "../scripts/carousel";
+
   const editionsScroll = document.getElementById("editionsScroll");
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
 
-  if (editionsScroll && prevBtn && nextBtn) {
-    const scrollAmount = 300;
-
-    prevBtn.addEventListener("click", () => {
-      editionsScroll.scrollBy({
-        left: -scrollAmount,
-        behavior: "smooth",
-      });
-    });
-
-    nextBtn.addEventListener("click", () => {
-      editionsScroll.scrollBy({
-        left: scrollAmount,
-        behavior: "smooth",
-      });
+  if (editionsScroll) {
+    initOrganicCarousel(editionsScroll, {
+      prevBtn: document.getElementById("prevBtn"),
+      nextBtn: document.getElementById("nextBtn"),
     });
   }
 </script>

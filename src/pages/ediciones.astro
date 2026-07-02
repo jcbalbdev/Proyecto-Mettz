@@ -223,11 +223,16 @@ const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 
 		display: flex;
 		gap: var(--space-6);
 		overflow-x: auto;
-		scroll-behavior: smooth;
 		-webkit-overflow-scrolling: touch;
 		scrollbar-width: none;
 		-ms-overflow-style: none;
 		padding-bottom: var(--space-4);
+		cursor: grab;
+	}
+
+	.editions-scroll.dragging {
+		cursor: grabbing;
+		user-select: none;
 	}
 
 	.editions-scroll::-webkit-scrollbar {
@@ -288,6 +293,8 @@ const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 
 </style>
 
 <script>
+	import { initOrganicCarousel } from '../scripts/carousel';
+
 	// Filter functionality
 	const yearFilter = document.getElementById('yearFilter') as HTMLSelectElement;
 	const monthFilter = document.getElementById('monthFilter') as HTMLSelectElement;
@@ -324,24 +331,11 @@ const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 
 
 	// Scroll controls
 	const editionsScroll = document.getElementById('editionsScroll');
-	const scrollLeft = document.getElementById('scrollLeft');
-	const scrollRight = document.getElementById('scrollRight');
 
-	if (editionsScroll && scrollLeft && scrollRight) {
-		const scrollAmount = 600;
-
-		scrollLeft.addEventListener('click', () => {
-			editionsScroll.scrollBy({
-				left: -scrollAmount,
-				behavior: 'smooth'
-			});
-		});
-
-		scrollRight.addEventListener('click', () => {
-			editionsScroll.scrollBy({
-				left: scrollAmount,
-				behavior: 'smooth'
-			});
+	if (editionsScroll) {
+		initOrganicCarousel(editionsScroll, {
+			prevBtn: document.getElementById('scrollLeft'),
+			nextBtn: document.getElementById('scrollRight'),
 		});
 	}
 </script>

@@ -221,6 +221,16 @@
 </style>
 
 <script>
+  import { showToast } from "../scripts/toast";
+
+  // Suscripciones aún no disponibles: avisar al usuario
+  document.querySelectorAll('a[href="#subscribe"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      showToast("¡Muy pronto! Estamos preparando las suscripciones METTZ.");
+    });
+  });
+
   // Menu toggle functionality (will be connected to MobileMenu component)
   const menuToggle = document.getElementById("menuToggle");
 

@@ -34,7 +34,7 @@ export interface EditionDetail {
   quote: { text: string; cite: string };
   featuredArticles: FeaturedArticle[];
   ctaDescription: string;
-  pdfPath: string;
+  pdfUrl: string;
 }
 
 // Helper para crear ediciones placeholder con portada como hero
@@ -45,6 +45,7 @@ function createPlaceholderEdition(
   month: string,
   year: string,
   coverImage: string,
+  pdfUrl: string,
 ): EditionDetail {
   return {
     slug,
@@ -86,7 +87,7 @@ function createPlaceholderEdition(
       { title: 'Podcast: Conversaciones de Moda', description: 'Entrevistas exclusivas con los protagonistas de la industria', href: '/podcast' },
     ],
     ctaDescription: `Descubre todas las historias, editoriales fotográficos y contenido exclusivo de ${title} en formato digital.`,
-    pdfPath: `/PDF/${slug}.pdf`,
+    pdfUrl,
   };
 }
 
@@ -134,25 +135,25 @@ export const editionsDetail: EditionDetail[] = [
       { title: 'METTZ Global: París, la Ciudad del Exceso Elegante', description: 'Recorremos los rincones de París que inspiraron la estética de esta edición', href: '/mettzglobal' },
     ],
     ctaDescription: 'Descubre todas las historias, editoriales fotográficos y contenido exclusivo de María Antonieta en formato digital.',
-    pdfPath: '/PDF/maria-antonieta-feb-2026.pdf',
+    pdfUrl: 'https://drive.google.com/file/d/1LyttNq1GpE8fqm58i7406Gnev5aMnpRo/view?usp=sharing',
   },
 
   // Issue 15–01: Ediciones con contenido placeholder
-  createPlaceholderEdition('call-me-by-your-name-ene-2026', 'Issue 15', 'Call Me by Your Name', 'Enero', '2026', '/Portadas/2601_ENE26_CALL-ME-BY-YOUR-NAME-1.png'),
-  createPlaceholderEdition('el-grinch-dic-2025', 'Issue 14', 'El Grinch', 'Diciembre', '2025', '/Portadas/2512_DIC25_EL-GRINCH-1.png'),
-  createPlaceholderEdition('dune-nov-2025', 'Issue 13', 'Dune', 'Noviembre', '2025', '/Portadas/2511_NOV25_DUNE-1.png'),
-  createPlaceholderEdition('the-last-of-us-oct-2025', 'Issue 12', 'The Last of Us', 'Octubre', '2025', '/Portadas/2510_OCT25_THE-LAST-OF-US-1.png'),
-  createPlaceholderEdition('the-age-of-adaline-sep-2025', 'Issue 11', 'The Age of Adaline', 'Septiembre', '2025', '/Portadas/2509_SEPT25_THE-AGE-OF-ADALINE-1.png'),
-  createPlaceholderEdition('the-neon-demon-ago-2025', 'Issue 10', 'The Neon Demon', 'Agosto', '2025', '/Portadas/2508_AGO25_THE-NEON-DEMON-1.png'),
-  createPlaceholderEdition('gladiator-jul-2025', 'Issue 09', 'Gladiator', 'Julio', '2025', '/Portadas/2507_JUL25_GLADIATOR-1.png'),
-  createPlaceholderEdition('the-devil-wears-prada-jun-2025', 'Issue 08', 'The Devil Wears Prada', 'Junio', '2025', '/Portadas/2506_JUN25_THE-DEVIL-WEARS-PRADA-1.png'),
-  createPlaceholderEdition('joker-may-2025', 'Issue 07', 'Joker', 'Mayo', '2025', '/Portadas/2505_MAY25_JOKER-1.png'),
-  createPlaceholderEdition('la-la-land-abr-2025', 'Issue 06', 'La La Land', 'Abril', '2025', '/Portadas/2504_ABR25_LA-LA-LAND-1.png'),
-  createPlaceholderEdition('13-going-on-30-mar-2025', 'Issue 05', '13 Going on 30', 'Marzo', '2025', '/Portadas/2503_MAR25_13-GOING-ON-30-1.png'),
-  createPlaceholderEdition('the-little-mermaid-feb-2025', 'Issue 04', 'The Little Mermaid', 'Febrero', '2025', '/Portadas/2502_FEB25_THE-LITTLE-MERMAID-1.png'),
-  createPlaceholderEdition('requiem-for-a-dream-ene-2025', 'Issue 03', 'Requiem for a Dream', 'Enero', '2025', '/Portadas/2501_ENE25_REQUIEM-FOR-A-DREAM-1.png'),
-  createPlaceholderEdition('home-alone-dic-2024', 'Issue 02', 'Home Alone', 'Diciembre', '2024', '/Portadas/2412_DIC24_HOME-ALONE-1.png'),
-  createPlaceholderEdition('the-great-gatsby-nov-2024', 'Issue 01', 'The Great Gatsby', 'Noviembre', '2024', '/Portadas/2411_NOV24_THE-GREAT-GATSBY-1.png'),
+  createPlaceholderEdition('call-me-by-your-name-ene-2026', 'Issue 15', 'Call Me by Your Name', 'Enero', '2026', '/Portadas/2601_ENE26_CALL-ME-BY-YOUR-NAME-1.png', 'https://drive.google.com/file/d/1_lf4XNIRKH0yO5BdzNoPFszPL3uQvdec/view?usp=sharing'),
+  createPlaceholderEdition('el-grinch-dic-2025', 'Issue 14', 'El Grinch', 'Diciembre', '2025', '/Portadas/2512_DIC25_EL-GRINCH-1.png', 'https://drive.google.com/file/d/1Pd4Ve85LSaFkn7oMMqeUB6OOH7yA2QFJ/view?usp=share_link'),
+  createPlaceholderEdition('dune-nov-2025', 'Issue 13', 'Dune', 'Noviembre', '2025', '/Portadas/2511_NOV25_DUNE-1.png', 'https://drive.google.com/file/d/1-ejU7Z55rQ-Cqzbvy9Lnsvofpl0xoT_K/view?usp=share_link'),
+  createPlaceholderEdition('the-last-of-us-oct-2025', 'Issue 12', 'The Last of Us', 'Octubre', '2025', '/Portadas/2510_OCT25_THE-LAST-OF-US-1.png', 'https://drive.google.com/file/d/1d2WeGRXk91OcACQPBIgzIj0QJA75u5eC/view?usp=share_link'),
+  createPlaceholderEdition('the-age-of-adaline-sep-2025', 'Issue 11', 'The Age of Adaline', 'Septiembre', '2025', '/Portadas/2509_SEPT25_THE-AGE-OF-ADALINE-1.png', 'https://drive.google.com/file/d/1qrW4sxUc16jxrscP5XDvIR1DrwYF12JF/view?usp=sharing'),
+  createPlaceholderEdition('the-neon-demon-ago-2025', 'Issue 10', 'The Neon Demon', 'Agosto', '2025', '/Portadas/2508_AGO25_THE-NEON-DEMON-1.png', 'https://drive.google.com/file/d/1_8f9tnJZIBQQvoFfNhm1hjDC0UBwRaOl/view?usp=share_link'),
+  createPlaceholderEdition('gladiator-jul-2025', 'Issue 09', 'Gladiator', 'Julio', '2025', '/Portadas/2507_JUL25_GLADIATOR-1.png', 'https://drive.google.com/file/d/1BZ7mLJKa9K_-lv1ufYKmLz5Ve_AzCA2N/view?usp=share_link'),
+  createPlaceholderEdition('the-devil-wears-prada-jun-2025', 'Issue 08', 'The Devil Wears Prada', 'Junio', '2025', '/Portadas/2506_JUN25_THE-DEVIL-WEARS-PRADA-1.png', 'https://drive.google.com/file/d/1jfhLiJ5sbby7afBzez8Y7VOflwDDx6Oz/view?usp=sharing'),
+  createPlaceholderEdition('joker-may-2025', 'Issue 07', 'Joker', 'Mayo', '2025', '/Portadas/2505_MAY25_JOKER-1.png', 'https://drive.google.com/file/d/1ljm0Hn0yaiaaj_S3NRP7W5GoJbkCJC0y/view?usp=share_link'),
+  createPlaceholderEdition('la-la-land-abr-2025', 'Issue 06', 'La La Land', 'Abril', '2025', '/Portadas/2504_ABR25_LA-LA-LAND-1.png', 'https://drive.google.com/file/d/1o35W_0zSEd55wR6tKleWJ2F-552mePuc/view?usp=sharing'),
+  createPlaceholderEdition('13-going-on-30-mar-2025', 'Issue 05', '13 Going on 30', 'Marzo', '2025', '/Portadas/2503_MAR25_13-GOING-ON-30-1.png', 'https://drive.google.com/file/d/1tsDxQsjOkBzkxlqroPJXJh0JfAjBvr-m/view?usp=sharing'),
+  createPlaceholderEdition('the-little-mermaid-feb-2025', 'Issue 04', 'The Little Mermaid', 'Febrero', '2025', '/Portadas/2502_FEB25_THE-LITTLE-MERMAID-1.png', 'https://drive.google.com/file/d/1CIGQDLqICO8No2UOGfh-SsH0ruDLi1_V/view?usp=sharing'),
+  createPlaceholderEdition('requiem-for-a-dream-ene-2025', 'Issue 03', 'Requiem for a Dream', 'Enero', '2025', '/Portadas/2501_ENE25_REQUIEM-FOR-A-DREAM-1.png', 'https://drive.google.com/file/d/1bsMJBAo3UH2HMuv0s3wvhkrT2A1zhbMZ/view?usp=share_link'),
+  createPlaceholderEdition('home-alone-dic-2024', 'Issue 02', 'Home Alone', 'Diciembre', '2024', '/Portadas/2412_DIC24_HOME-ALONE-1.png', 'https://drive.google.com/file/d/15OGXhumsH7E2GKlMiv_WHmYmJa00xzYC/view?usp=share_link'),
+  createPlaceholderEdition('the-great-gatsby-nov-2024', 'Issue 01', 'The Great Gatsby', 'Noviembre', '2024', '/Portadas/2411_NOV24_THE-GREAT-GATSBY-1.png', 'https://drive.google.com/file/d/1xnsXAqKCSnnAbZVVTPzo5pcTsVHXypSY/view?usp=share_link'),
 ];
 
 // Datos simplificados para la página de listado

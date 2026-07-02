@@ -16,7 +16,7 @@ const { issueNumber, title, month, year, coverImageUrl, slug } = Astro.props;
     <div class="edition-cover">
       {
         coverImageUrl ? (
-          <img src={coverImageUrl} alt={title} class="cover-image" />
+          <img src={coverImageUrl} alt={title} class="cover-image" loading="lazy" decoding="async" />
         ) : (
           <div class="cover-placeholder">
             <span class="edition-logo">METTZ</span>

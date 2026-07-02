@@ -1,0 +1,215 @@
+---
+import { fashionFilms } from "../data/fashionFilms";
+import { makingOfVideos } from "../data/makingOf";
+import type { VideoEntry } from "../data/fashionFilms";
+
+// Los 4 videos más recientes que ya tienen link de YouTube
+const latestWithVideo = (videos: VideoEntry[]) =>
+  videos.filter((v) => v.youtubeUrl).slice(0, 4);
+
+const rows = [
+  {
+    label: "FASHIONFILMS",
+    href: "/video/fashionfilms",
+    videos: latestWithVideo(fashionFilms),
+  },
+  {
+    label: "MAKING OFF",
+    href: "/video/makingoff",
+    videos: latestWithVideo(makingOfVideos),
+  },
+];
+---
+
+<section class="home-videos">
+  <div class="container">
+    {
+      rows.map((row) => (
+        <div class="video-row">
+          <div class="row-header">
+            <h2 class="row-title">{row.label}</h2>
+            <a href={row.href} class="row-link">Ver todos →</a>
+          </div>
+          <div class="video-grid">
+            {row.videos.map((video) => (
+              <article class="video-card">
+                <a
+                  href={video.youtubeUrl}
+                  class="video-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div class="video-cover">
+                    {video.coverImage ? (
+                      <img
+                        src={video.coverImage}
+                        alt={`${row.label} ${video.title}`}
+                        class="cover-image"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <div class="cover-placeholder">
+                        <span class="video-logo">METTZ</span>
+                      </div>
+                    )}
+                    <div class="play-overlay">
+                      <svg
+                        width="48"
+                        height="48"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <polygon points="8 5 19 12 8 19 8 5" />
+                      </svg>
+                    </div>
+                  </div>
+                  <h3 class="video-title">{video.title}</h3>
+                  <p class="video-meta">{video.month} {video.year}</p>
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .home-videos {
+    padding: var(--space-12) 0;
+    border-top: var(--border-width) solid var(--border-color);
+  }
+
+  .video-row {
+    margin-bottom: var(--space-12);
+  }
+
+  .video-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-8);
+  }
+
+  .row-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin: 0;
+  }
+
+  .row-link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-black);
+    transition: opacity var(--transition-fast);
+  }
+
+  .row-link:hover {
+    opacity: 0.6;
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  .video-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .video-cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    margin-bottom: var(--space-3);
+    background-color: var(--color-gray-200);
+  }
+
+  .cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .video-link:hover .cover-image {
+    transform: scale(1.05);
+  }
+
+  .cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-logo {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--color-white);
+  }
+
+  .play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: var(--color-white);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .video-link:hover .play-overlay {
+    opacity: 1;
+  }
+
+  .video-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+    color: var(--color-black);
+    transition: opacity var(--transition-fast);
+  }
+
+  .video-link:hover .video-title {
+    opacity: 0.7;
+  }
+
+  .video-meta {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    margin: 0;
+  }
+
+  @media (min-width: 640px) {
+    .video-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-8);
+    }
+
+    .row-title {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>

@@ -1,0 +1,284 @@
+---
+import type { VideoEntry } from "../data/fashionFilms";
+
+interface Props {
+  title: string;
+  description: string;
+  videos: VideoEntry[];
+  placeholderLabel: string;
+}
+
+const { title, description, videos, placeholderLabel } = Astro.props;
+---
+
+<main class="videos-page">
+  <!-- Hero Section -->
+  <section class="videos-hero">
+    <div class="container-narrow">
+      <h1 class="videos-title">{title}</h1>
+      <p class="videos-description">{description}</p>
+    </div>
+  </section>
+
+  <!-- Videos Grid -->
+  <section class="videos-section">
+    <div class="container">
+      <div class="videos-grid">
+        {
+          videos.map((video) =>
+            video.youtubeUrl ? (
+              <article class="video-card">
+                <a
+                  href={video.youtubeUrl}
+                  class="video-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div class="video-cover">
+                    {video.coverImage ? (
+                      <img
+                        src={video.coverImage}
+                        alt={`${placeholderLabel} ${video.title}`}
+                        class="cover-image"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div class="cover-placeholder">
+                        <span class="video-logo">METTZ</span>
+                        <span class="video-label">{placeholderLabel}</span>
+                      </div>
+                    )}
+                    <div class="play-overlay">
+                      <svg
+                        width="56"
+                        height="56"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <polygon points="8 5 19 12 8 19 8 5" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="video-info">
+                    <h3 class="video-title">{video.title}</h3>
+                    <p class="video-meta">{video.month} {video.year}</p>
+                  </div>
+                </a>
+              </article>
+            ) : (
+              <article class="video-card video-card-soon">
+                <div class="video-link">
+                  <div class="video-cover">
+                    {video.coverImage ? (
+                      <img
+                        src={video.coverImage}
+                        alt={`${placeholderLabel} ${video.title}`}
+                        class="cover-image"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div class="cover-placeholder">
+                        <span class="video-logo">METTZ</span>
+                        <span class="video-label">{placeholderLabel}</span>
+                      </div>
+                    )}
+                    <div class="soon-overlay">
+                      <span>Próximamente</span>
+                    </div>
+                  </div>
+                  <div class="video-info">
+                    <h3 class="video-title">{video.title}</h3>
+                    <p class="video-meta">{video.month} {video.year}</p>
+                  </div>
+                </div>
+              </article>
+            ),
+          )
+        }
+      </div>
+
+      <a href="/video" class="back-link">← Volver a Video</a>
+    </div>
+  </section>
+</main>
+
+<style>
+  /* Hero Section */
+  .videos-hero {
+    padding: var(--space-16) 0;
+    text-align: center;
+    border-bottom: var(--border-width) solid var(--border-color);
+  }
+
+  .container-narrow {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  .videos-title {
+    font-size: var(--text-6xl);
+    margin-bottom: var(--space-6);
+    font-weight: 400;
+  }
+
+  .videos-description {
+    font-size: var(--text-base);
+    line-height: 1.8;
+    color: var(--color-gray-700);
+  }
+
+  /* Videos Grid */
+  .videos-section {
+    padding: var(--space-16) 0;
+    text-align: center;
+  }
+
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+    text-align: left;
+  }
+
+  .video-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .video-cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    margin-bottom: var(--space-3);
+    background-color: var(--color-gray-200);
+  }
+
+  .cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .video-link:hover .cover-image {
+    transform: scale(1.05);
+  }
+
+  .cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-logo {
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--color-white);
+    margin-bottom: var(--space-2);
+  }
+
+  .video-label {
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: var(--color-white);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .video-link:hover .play-overlay {
+    opacity: 1;
+  }
+
+  .soon-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.55);
+    color: var(--color-white);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .video-card-soon .cover-image {
+    filter: grayscale(100%);
+  }
+
+  .video-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+    color: var(--color-black);
+    transition: opacity var(--transition-fast);
+  }
+
+  .video-link:hover .video-title {
+    opacity: 0.7;
+  }
+
+  .video-meta {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    margin: 0;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: var(--space-12);
+    color: var(--color-gray-600);
+    font-size: var(--text-base);
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-black);
+  }
+
+  /* Responsive */
+  @media (min-width: 640px) {
+    .videos-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-10);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .videos-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .videos-title {
+      font-size: 5rem;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .videos-title {
+      font-size: var(--text-5xl);
+    }
+  }
+</style>

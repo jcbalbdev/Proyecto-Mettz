@@ -15,7 +15,7 @@ const { category, title, description, imageUrl, link } = Astro.props;
     {
       imageUrl && (
         <div class="hero-image-wrapper">
-          <img src={imageUrl} alt={title} class="hero-image" />
+          <img src={imageUrl} alt={title} class="hero-image" fetchpriority="high" decoding="async" />
         </div>
       )
     }

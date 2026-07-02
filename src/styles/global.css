@@ -274,3 +274,30 @@ img {
   outline: 2px solid var(--color-black);
   outline-offset: 2px;
 }
+
+/* ===================================
+   Toast global
+   =================================== */
+.site-toast {
+  position: fixed;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%) translateY(var(--space-4));
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+  z-index: 1000;
+}
+
+.site-toast.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}

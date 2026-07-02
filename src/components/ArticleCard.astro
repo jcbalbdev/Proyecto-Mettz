@@ -16,7 +16,7 @@ const { category, title, excerpt, imageUrl, link, date } = Astro.props;
     {
       imageUrl && (
         <div class="card-image-wrapper">
-          <img src={imageUrl} alt={title} class="card-image" />
+          <img src={imageUrl} alt={title} class="card-image" loading="lazy" decoding="async" />
         </div>
       )
     }

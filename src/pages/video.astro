@@ -9,11 +9,13 @@ const categories = [
     id: "fashionfilms",
     label: "FASHIONFILMS",
     description: "Fashion films mensuales desde noviembre 2024",
+    href: "/video/fashionfilms",
   },
   {
     id: "makingoff",
     label: "MAKING OFF",
     description: "Behind the scenes de nuestras producciones",
+    href: "/video/makingoff",
   },
   {
     id: "looks",
@@ -59,25 +61,45 @@ const categories = [
       <div class="container">
         <div class="categories-grid">
           {
-            categories.map((category) => (
-              <div class="category-card">
-                <div class="category-placeholder">
-                  <svg
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1"
-                  >
-                    <polygon points="5 3 19 12 5 21 5 3" />
-                  </svg>
+            categories.map((category) =>
+              category.href ? (
+                <a href={category.href} class="category-card category-card-link">
+                  <div class="category-placeholder">
+                    <svg
+                      width="64"
+                      height="64"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1"
+                    >
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                  </div>
+                  <h2 class="category-title">{category.label}</h2>
+                  <p class="category-description">{category.description}</p>
+                  <p class="view-more">Ver videos →</p>
+                </a>
+              ) : (
+                <div class="category-card">
+                  <div class="category-placeholder">
+                    <svg
+                      width="64"
+                      height="64"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1"
+                    >
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                  </div>
+                  <h2 class="category-title">{category.label}</h2>
+                  <p class="category-description">{category.description}</p>
+                  <p class="coming-soon">Próximamente</p>
                 </div>
-                <h2 class="category-title">{category.label}</h2>
-                <p class="category-description">{category.description}</p>
-                <p class="coming-soon">Próximamente</p>
-              </div>
-            ))
+              ),
+            )
           }
         </div>
       </div>
@@ -170,6 +192,21 @@ const categories = [
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--color-gray-500);
+    margin: 0;
+  }
+
+  .category-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .view-more {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-black);
     margin: 0;
   }
 
